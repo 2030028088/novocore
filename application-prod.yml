@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/aurora_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: your_db_username
+    password: your_db_password
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: your_email@qq.com
+    password: your_email_password
+
+app:
+  upload-dir: /data/novocore/uploads
+
+springdoc:
+  api-docs:
+    path: /api-docs

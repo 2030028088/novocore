@@ -1,0 +1,80 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+spring:
+  application:
+    name: aurora-blog-backend
+  
+  mail:
+    host: ${MAIL_HOST:smtp.qq.com}
+    port: ${MAIL_PORT:465}
+    username: ${MAIL_USERNAME:2030028088@qq.com}
+    password: ${MAIL_PASSWORD:axgzgalrdhqsfjaj}
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            required: true
+        transport:
+          protocol: smtps
+  
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DB_URL:jdbc:mysql://localhost:3306/aurora_blog?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:root}
+  
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD:}
+      database: ${REDIS_DB:0}
+      timeout: 5000ms
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID:Ov23liOMvOZIz2rYwMfK}
+            client-secret: ${GITHUB_CLIENT_SECRET:77acb553fb618bdd2bbfdef80bb46f95191c6e5f}
+            redirect-uri: http://localhost:8080/login/oauth2/code/github
+            scope:
+              - user:email
+              - read:user
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.aurora.entity
+  type-handlers-package: com.aurora.config
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+jwt:
+  secret: ${JWT_SECRET:aurora-blog-secret-key-change-this-in-production-please-use-a-strong-random-string-at-least-32-characters}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+app:
+  upload-dir: ${UPLOAD_DIR:../../uploads}
+  frontend-url: ${FRONTEND_URL:http://localhost:5173}
+
+logging:
+  level:
+    com.aurora: ${LOG_LEVEL:DEBUG}
